@@ -1,7 +1,9 @@
 const query = require('../db/mysql-connection');
-const {multipleColumnSet} = require('../utils/common.utils');
+const {multipleColumnSet} = require('../utils/common');
+const Joi = require("joi");
 
-class GenreModel {
+class Genre {
+
     tableName = 'genre';
 
     find = async (params = {}) => {
@@ -62,6 +64,15 @@ class GenreModel {
 
         return affectedRows;
     }
+
+    validate(genre) {
+
+        const schema = Joi.object({
+            name: Joi.string().min(3).required()
+        });
+
+        return schema.validate(genre);
+    }
 }
 
-module.exports = new GenreModel();
+module.exports = new Genre();

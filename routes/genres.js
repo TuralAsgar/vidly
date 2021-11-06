@@ -1,39 +1,40 @@
 const express = require('express');
 const router = express.Router();
-
 const Joi = require("joi");
-const genres = [
-    {id: 1, name: 'Action'},
-    {id: 2, name: 'Horror'},
-    {id: 3, name: 'Romance'},
-];
+const Genre = require('../models/genre.model')
 
-router.get('/', (req, res) => {
+
+router.get('/', async (req, res) => {
+    let genres = await Genre.find();
     res.send(genres);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const {error} = validateGenre(req.body);
     if (error) return res.status(404).send(error.details[0].message);
 
     const genre = {
-        id: genres.length + 1,
         name: req.body.name
     };
 
-    genres.push(genre);
-    res.send(genre);
+    let saved = await Genre.create(genre);
+    if (saved) return res.send(genre);
+
+    res.status(500).send('Genre can\'t be saved');
 });
 
-router.put('/:id', (req, res) => {
-    const genre = genres.find(c => c.id === parseInt(req.params.id));
+router.put('/:id', async (req, res) => {
+    const genre = await Genre.findOne({id: parseInt(req.params.id)})
     if (!genre) return res.status(404).send('The genre with the given ID not found');
 
     const {error} = validateGenre(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    genre.name = req.body.name;
-    res.send(genre);
+    let {affectedRows: updated} = await Genre.update(req.body, req.params.id)
+
+    if (updated) return res.send({...genre, name: req.body.name});
+
+    res.status(500).send('Genre not updated. Error occurred');
 });
 
 

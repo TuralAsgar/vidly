@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Joi = require("joi");
 const Genre = require('../models/genre')
 
 
@@ -38,23 +37,23 @@ router.put('/:id', async (req, res) => {
 });
 
 
-router.delete('/:id', (req, res) => {
-    const genre = genres.find(c => c.id === parseInt(req.params.id));
+router.delete('/:id', async (req, res) => {
+    const genre = await Genre.findOne({id: req.params.id});
     if (!genre) return res.status(404).send('The genre with the given ID not found');
 
-    const index = genres.indexOf(genre);
-    genres.splice(index, 1);
+    const affectedRows = await Genre.delete(req.params.id);
+    if (affectedRows) return res.send(genre);
 
-    res.send(genre);
+
+    res.status(500).send('Genre not deleted. Error occurred');
 });
 
 router.get('/:id', (req, res) => {
-    const genre = genres.find(c => c.id = parseInt(req.params.id));
+    const genre = Genre.find({id: req.params.id});
     if (!genre) return res.status(404).send('The genre with the given ID not found');
 
     res.send(genre);
 });
-
 
 
 module.exports = router;

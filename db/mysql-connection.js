@@ -3,10 +3,11 @@ const mysql2 = require("mysql2");
 class DBConnection {
     constructor() {
         this.db = mysql2.createPool({
-            host: process.env.DB_HOST || "localhost",
-            user: process.env.DB_USER || "root",
+            host: process.env.DB_HOST || "127.0.0.1",
+            user: process.env.DB_USER || "admin",
             password: process.env.DB_PASS || "terevez28",
-            database: process.env.DB_DATABASE || "vidly"
+            database: process.env.DB_DATABASE || "vidly",
+            port: 3306
         });
 
         this.checkConnection();

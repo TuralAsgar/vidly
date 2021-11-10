@@ -51,8 +51,8 @@ router.delete('/:id', [auth, admin], async (req, res) => {
     res.status(500).send('Genre not deleted. Error occurred');
 });
 
-router.get('/:id', (req, res) => {
-    const genre = Genre.find({id: req.params.id});
+router.get('/:id', async (req, res) => {
+    const genre = await Genre.findOne({id: req.params.id});
     if (!genre) return res.status(404).send('The genre with the given ID not found');
 
     res.send(genre);

@@ -1,0 +1,10 @@
+{
+  "jwtPrivateKey": "vidly_jwtPrivateKey",
+  "db": {
+    "host": "vidly_db_host",
+    "port": "vidly_db_port",
+    "name": "vidly_db_name",
+    "user": "vidly_db_user",
+    "password": "vidly_db_password"
+  }
+}

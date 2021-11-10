@@ -1,0 +1,10 @@
+{
+  "jwtPrivateKey": "",
+  "db": {
+    "host": "localhost",
+    "port": 3306,
+    "name": "vidly",
+    "user": "",
+    "password": ""
+  }
+}

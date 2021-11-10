@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mysql
+ Source Server         : mysql-mariadb-3306
  Source Server Type    : MySQL
- Source Server Version : 100512
+ Source Server Version : 100413
  Source Host           : localhost:3306
  Source Schema         : vidly
 
  Target Server Type    : MySQL
- Target Server Version : 100512
+ Target Server Version : 100413
  File Encoding         : 65001
 
- Date: 08/11/2021 03:32:15
+ Date: 10/11/2021 04:18:42
 */
 
 SET NAMES utf8mb4;
@@ -51,14 +51,14 @@ CREATE TABLE `genre`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of genre
 -- ----------------------------
-INSERT INTO `genre` VALUES (2, 'Horror');
-INSERT INTO `genre` VALUES (3, 'Action');
-INSERT INTO `genre` VALUES (5, 'Tural');
+INSERT INTO `genre` VALUES (1, 'Action');
+INSERT INTO `genre` VALUES (2, 'Tural');
+INSERT INTO `genre` VALUES (3, 'bur');
 
 -- ----------------------------
 -- Table structure for movie
@@ -110,12 +110,18 @@ CREATE TABLE `user`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `is_admin` tinyint(1) UNSIGNED NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unique email`(`email`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES (1, 'Tural', 'tural.esger@gmail.com', '$2b$10$fNySDuMmw4azUFXchn8IE.3gjsO4lHFYq6FTQuCQ3W29vL84qH3S.', 1);
+INSERT INTO `user` VALUES (2, 'Tural', 'tural.esger2@gmail.com', '$2b$10$zIHncDuHougCvJDe4UZ6i.FIhD1AZxkp13tCsiN2xpe0rhDbuqPyK', 0);
+INSERT INTO `user` VALUES (3, 'Tural', 'tural.esger33@gmail.com', '$2b$10$sJ5wGQd4H9MR5PbduaHVE.TpjFYINZUgHvgfUpUfsF9xhKL8zNfv2', 0);
+INSERT INTO `user` VALUES (4, 'Tural', 'tural.esger3@gmail.com', '$2b$10$W9lVJNZWkxIwFMZYnPcIW.mKqgrrXP/tJAlqVuxRvZIsd5gckElxq', 0);
+INSERT INTO `user` VALUES (5, 'Tural', 'tural.esger4@gmail.com', '$2b$10$lgaPEjR0vojbrtnHkMD.kOd30URJDDLeoI9OMsHDk8FITTuLHJ656', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

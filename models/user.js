@@ -1,6 +1,8 @@
 const query = require('../db/mysql-connection');
 const {multipleColumnSet} = require('../utils/common');
 const Joi = require("joi");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 class User {
 
@@ -27,8 +29,14 @@ class User {
 
         const result = await query(sql, [...values]);
 
+        if (result[0]) {
+            this.id = result[0].id;
+            this.isAdmin = !!result[0].is_admin;
+            return {...this, ...result[0]};
+        }
+
         // return back the first row (user)
-        return result[0];
+        return null;
     }
 
     create = async ({name, email, password}) => {
@@ -65,8 +73,8 @@ class User {
 
         const schema = Joi.object({
             name: Joi.string().min(5).max(50).required(),
-            email: Joi.string().min(5).max(255).email(),
-            password: Joi.string().min(5).max(255)
+            email: Joi.string().min(5).max(255).email().required(),
+            password: Joi.string().min(5).max(255).required()
         });
 
         return schema.validate(user);
@@ -74,21 +82,21 @@ class User {
 
     toDb = (user) => {
         return {
-            title: user.title,
-            genre_id: user.genreId,
-            number_in_stock: user.numberInStock,
-            daily_rental_rate: user.dailyRentalRate,
+            name: user.name,
+            email: user.email,
+            password: user.password,
         }
     }
 
     toApi = (user) => {
         return {
-            id: user.id,
-            title: user.title,
-            genreId: user.genre_id,
-            numberInStock: user.number_in_stock,
-            dailyRentalRate: user.daily_rental_rate,
+            name: user.name,
+            email: user.email,
         }
+    }
+
+    generateAuthToken = () => {
+        return jwt.sign({id: this.id, isAdmin: this.isAdmin}, config.get('jwtPrivateKey'));
     }
 }
 

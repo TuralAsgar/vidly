@@ -1,0 +1,9 @@
+NODE_ENV=development
+
+vidly_db_host=localhost
+vidly_db_port=3306
+vidly_db_name=vidly
+vidly_db_user=root
+vidly_db_password=terevez28
+
+vidly_jwtPrivateKey=dartmayaxamcirildi

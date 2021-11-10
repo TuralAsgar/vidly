@@ -1,13 +1,14 @@
 const mysql2 = require("mysql2");
+const config = require('config');
 
 class DBConnection {
     constructor() {
         this.db = mysql2.createPool({
-            host: process.env.DB_HOST || "127.0.0.1",
-            user: process.env.DB_USER || "admin",
-            password: process.env.DB_PASS || "terevez28",
-            database: process.env.DB_DATABASE || "vidly",
-            port: 3306
+            host: config.get('db.host'),
+            user: config.get('db.user'),
+            password: config.get('db.password'),
+            database: config.get('db.name'),
+            port: config.get('db.port'),
         });
 
         this.checkConnection();

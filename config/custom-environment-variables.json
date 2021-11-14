@@ -1,5 +1,6 @@
 {
   "jwtPrivateKey": "vidly_jwtPrivateKey",
+  "port": "vildy_port",
   "db": {
     "host": "vidly_db_host",
     "port": "vidly_db_port",

@@ -1,5 +1,6 @@
 const mysql2 = require("mysql2");
 const config = require('config');
+const winston = require("winston");
 
 class DBConnection {
     constructor() {
@@ -27,6 +28,12 @@ class DBConnection {
                     throw new Error('Database connection was refused.');
                 }
             }
+
+            const db = config.get('db.name');
+            const host=config.get('db.host');
+            const port = config.get('db.port')
+            winston.info(`Connected to ${db} on ${host}: port ${port}`);
+
             if (connection) {
                 connection.release();
             }

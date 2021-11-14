@@ -4,7 +4,7 @@
   "db": {
     "host": "localhost",
     "port": 3306,
-    "name": "vidly",
+    "name": "vidly_tests",
     "user": "root",
     "password": "terevez28"
   }

@@ -1,4 +1,5 @@
-NODE_ENV=development
+NODE_ENV=test
+VIDLY_PORT=3000
 
 vidly_db_host=localhost
 vidly_db_port=3306

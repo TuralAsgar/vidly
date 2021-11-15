@@ -1,3 +1,4 @@
+require('dotenv').config()
 const winston = require('winston');
 const express = require('express');
 const config = require('config');
@@ -9,6 +10,8 @@ require('./startup/config')();
 
 
 const port = config.get('port');
-app.listen(port, () => {
+const server = app.listen(port, () => {
     winston.info(`Listening on port ${port}`)
 });
+
+module.exports = server;

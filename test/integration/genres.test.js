@@ -7,7 +7,7 @@ describe('/api/v1/genres', () => {
 
     describe('GET /', () => {
         it('should return all genres', async () => {
-            const res = await request(server).get('api/v1/genres');
+            const res = await request(server).get('/api/v1/genres');
             expect(res.status).toBe(200);
         });
     });

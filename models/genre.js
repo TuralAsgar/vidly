@@ -65,6 +65,12 @@ class Genre {
         return affectedRows;
     }
 
+    deleteAll = async () => {
+        const sql = `delete
+                     from genre`;
+        return await query(sql);
+    }
+
     validate(genre) {
 
         const schema = Joi.object({

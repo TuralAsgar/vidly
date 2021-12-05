@@ -11,6 +11,7 @@ require('./startup/config')();
 
 const port = config.get('port');
 const server = app.listen(port, () => {
+    winston.info(`NODE_ENV=${process.env.NODE_ENV ?? 'development'}`)
     winston.info(`Listening on port ${port}`)
 });
 
